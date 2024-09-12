@@ -4,26 +4,36 @@ import TaskList from './TaskList';
 
 function App() {
   const [tasks, setTasks] = useState([]);
+  const [editTask, setEditTask] = useState(null);
 
   const addTask = (task) => {
-    const newTask = {
-      ...task,
-      id: tasks.length + 1,
-    };
-    setTasks([...tasks, newTask]);
+    if (editTask) {
+      setTasks(tasks.map((t) => (t.id === editTask.id ? { ...task, id: editTask.id } : t)));
+      setEditTask(null);
+    } else {
+      const newTask = { ...task, id: tasks.length + 1 };
+      setTasks([...tasks, newTask]);
+    }
   };
 
   const deleteTask = (taskId) => {
     setTasks(tasks.filter((task) => task.id !== taskId));
   };
 
+  const editTaskHandler = (task) => {
+    setEditTask(task);
+  };
+
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Task Manager</h1>
-      <TaskForm onSubmit={addTask} />
-      <hr className="my-4" />
-      <h2 className="text-xl font-bold mb-2">Task List</h2>
-      <TaskList tasks={tasks} onDelete={deleteTask} />
+    <div className="bg-gray-100 min-h-screen py-10">
+      <div className="container mx-auto px-4">
+        <h1 className="text-3xl font-bold mb-8 text-center">Task Manager</h1>
+        <TaskForm onSubmit={addTask} taskToEdit={editTask} />
+        <div className="mt-10">
+          <h2 className="text-2xl font-bold mb-4">Your Task List</h2>
+          <TaskList tasks={tasks} onDelete={deleteTask} onEdit={editTaskHandler} />
+        </div>
+      </div>
     </div>
   );
 }
