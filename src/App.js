@@ -25,12 +25,13 @@ function App() {
   };
 
   return (
-    <div className="bg-gray-100 min-h-screen py-10">
+    <div className="bg-sky-50 min-h-screen py-10">
       <div className="container mx-auto px-4">
-        <h1 className="text-3xl font-bold mb-8 text-center">Task Manager</h1>
+      <h1 className="text-3xl font-bold mb-2 text-center">React Developer Intern Test</h1>
+        <h1 className="text-2xl font-semibold mb-4 text-center">Task Manager</h1>
         <TaskForm onSubmit={addTask} taskToEdit={editTask} />
         <div className="mt-10">
-          <h2 className="text-2xl font-bold mb-4">Your Task List</h2>
+          <h2 className="text-2xl font-semibold mb-4">Your Task List</h2>
           <TaskList tasks={tasks} onDelete={deleteTask} onEdit={editTaskHandler} />
         </div>
       </div>
